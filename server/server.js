@@ -12,6 +12,7 @@ var app = express();
 
 app.use(bodyParser.json());
 
+// allow access from other domain
 app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'PUT, PATCH, GET, POST, DELETE, OPTIONS');
@@ -33,7 +34,7 @@ app.post('/todos', (req, res) => {
 	todo.save().then((doc) => {
 		res.send(doc);
 	}, (e) => {
-		res.status(400).send(e);
+		res.status(400).send({status: 'error'});
 	})
 });
 
