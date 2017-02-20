@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+    <script type="text/javascript">
+      $(document).ready(() => {
+        $.ajax({
+          url: 'https://lit-peak-62519.herokuapp.com/todos',
+          type: 'GET',
+          success: (res) => {
+            console.log(res);
+          }
+        })
+      })
+    </script>
+  </head>
+  <body>
+
+  </body>
+</html>
