@@ -261,4 +261,36 @@ describe('POST /users/login', () => {
 				}).catch((e) => done(e));
 			});
 	});
+
+	it('should reject invalid login', (done) => {
+		request(app)
+			.post('/users/login')
+			.send({
+				email: 'howard036060006@gmail.com',
+				password: '00023'
+			})
+			.expect(400)
+			.expect((res) => {
+				expect(res.headers['x-auth']).toNotExist()
+			})
+			.end(done);
+	});
 })
+
+
+describe('DELETE /users/me/token', () => {
+	it('should auth token on logout', (done) => {
+		request(app)
+			.delete('/users/me/token')
+			.set('x-auth', users[0].tokens[0].token)
+			.expect(200)
+			.end((err, res) => {
+				if(err) return done(e);
+
+				User.findById(users[0]._id).then((user) => {
+					expect(user.tokens.length).toBe(0);
+					done();
+				}).catch((e) => done(e));
+			})
+	})
+});
