@@ -235,7 +235,30 @@ describe('POST /users', () =>　{
 			.expect(400)
 			.end(done);
 	})
+});
 
+describe('POST /users/login', () => {
+	it('should login user an return token', (done) => {
+		request(app)
+			.post('/users/login')
+			.send({
+				email: users[1].email,
+				password: users[1].password
+			})
+			.expect(200)
+			.expect((res) => {
+				expect(res.headers['x-auth']).toExist();
+			})
+			.end((err, res) => {
+				if(err) done()
 
-
+				User.findById({_id: users[1]._id}).then((user) => {
+					expect(user.tokens[0]).toInclude({
+						access:'auth',
+						token: res.headers['x-auth']
+					});
+					done();
+				}).catch((e) => done(e));
+			});
+	});
 })
