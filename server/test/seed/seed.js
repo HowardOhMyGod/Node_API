@@ -7,11 +7,12 @@ const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 const todo = [
 	{	_id: new ObjectID(),
-		text : 'pre1'},
+		text : 'pre1', _creator: userOneId},
 	{	_id: new ObjectID(),
 		text: 'pre2',
 		completed: true,
-		completedAt: 333}
+		completedAt: 333,
+		userTwoId: userTwoId}
 ];
 
 const users = [{
