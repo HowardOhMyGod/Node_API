@@ -21,12 +21,16 @@ const users = [{
   password: '12345',
   tokens: [{
     access: 'auth',
-    token: jwt.sign({_id: userOneId, access: 'auth'}, '123')
+    token: jwt.sign({_id: userOneId, access: 'auth'}, process.env.JWT_SECRET)
   }]
 }, {
   _id: userTwoId,
   email: 'anna@test.com',
-  password: '00000'
+  password: '00000',
+	tokens: [{
+    access: 'auth',
+    token: jwt.sign({_id: userTwoId, access: 'auth'}, process.env.JWT_SECRET)
+  }]
 }]
 
 const populateTodos = (done) => {
